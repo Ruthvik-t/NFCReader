@@ -32,8 +32,10 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".OffersCoupons"
-            android:label="Tesco"></activity>
+        <activity
+            android:name=".OffersCoupons"
+            android:label="Tesco" />
+        <activity android:name=".OffersActivty"></activity>
     </application>
 
 </manifest>

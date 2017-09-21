@@ -164,9 +164,9 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
 
     @Override
     public void OnSuccessfullCouponResponse(ArrayList<Coupons> coupons) {
-        GlobalData.coupons = coupons;
-        Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
-        startActivity(intent);
+//        GlobalData.coupons = coupons;
+//        Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
+//        startActivity(intent);
     }
 
 

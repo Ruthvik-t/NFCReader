@@ -1,6 +1,7 @@
 package com.hackathon.apps.nfcreader.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,8 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.hackathon.apps.nfcreader.GlobalData;
+import com.hackathon.apps.nfcreader.OffersActivty;
 import com.hackathon.apps.nfcreader.OffersAdapter;
 import com.hackathon.apps.nfcreader.R;
 import com.hackathon.apps.nfcreader.model.Product;
@@ -39,6 +40,7 @@ public class OffersFragment extends Fragment implements View.OnClickListener {
     boolean isOffers = false;
 
     private static final String LIST_COUNT = "ListCount";
+    private static final String IS_OFFERS = "isOffers";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,9 +48,12 @@ public class OffersFragment extends Fragment implements View.OnClickListener {
         if(savedInstanceState != null){
             if(savedInstanceState.containsKey(LIST_COUNT))
                 showCount = savedInstanceState.getInt(LIST_COUNT);
+            if(savedInstanceState.containsKey(IS_OFFERS))
+                isOffers = savedInstanceState.getBoolean(IS_OFFERS);
         }
         else if(getArguments() != null){
             showCount = getArguments().getInt(LIST_COUNT, 2);
+            isOffers = getArguments().getBoolean(IS_OFFERS);
         }
     }
 
@@ -66,7 +71,7 @@ public class OffersFragment extends Fragment implements View.OnClickListener {
 
         ArrayList<Product> products = new ArrayList<Product>();
         if(isOffers) {
-            adapter = new OffersAdapter(getContext(), GlobalData.promotions);
+            adapter = new OffersAdapter(getContext(), GlobalData.promotions, showCount);
         } else {
 //            adapter = new OffersAdapter(getContext(), GlobalData.coupons);
         }
@@ -80,8 +85,8 @@ public class OffersFragment extends Fragment implements View.OnClickListener {
         OffersFragment offersFragment = new OffersFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(LIST_COUNT, showCount);
+        bundle.putBoolean(IS_OFFERS, isOffers);
         offersFragment.setArguments(bundle);
-        this.isOffers = isOffers;
         return  offersFragment;
     }
 
@@ -90,6 +95,9 @@ public class OffersFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.load_more:
                 Toast.makeText(getContext(), "load more clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), OffersActivty.class);
+                startActivity(intent);
+                break;
         }
     }
 }
