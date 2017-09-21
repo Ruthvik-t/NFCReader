@@ -190,7 +190,7 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
             e.printStackTrace();
         }
         if(listener != null)
-            listener.OnSuccessfullResponse(s, coupons);
+            listener.OnSuccessfullResponse(s, coupons, null);
     }
 
     /**

@@ -151,11 +151,19 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
     }
 
     @Override
-    public void OnSuccessfullResponse(ArrayList<Product> products, ArrayList<Coupons> coupons) {
+    public void OnSuccessfullResponse(ArrayList<Product> products, ArrayList<Coupons> coupons, ArrayList<Product> aisles) {
         GlobalData.promotions = products;
         GlobalData.coupons = coupons;
-        Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
-        startActivity(intent);
+        GlobalData.aisles = aisles;
+        if(aisles == null) {
+            Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent = new Intent(getApplicationContext(), AisleActivity.class);
+            startActivity(intent);
+        }
 
     }
 }

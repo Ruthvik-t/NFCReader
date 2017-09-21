@@ -43,7 +43,7 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
     protected void onPostExecute(ArrayList<Product> s) {
         super.onPostExecute(s);
         if(listener != null)
-            listener.OnSuccessfullResponse(s, null);
+            listener.OnSuccessfullResponse(null, null, s);
     }
     @Override
     protected ArrayList<Product> doInBackground(String... params) {
