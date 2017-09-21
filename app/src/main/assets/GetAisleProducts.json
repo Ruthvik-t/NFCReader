@@ -1,9 +1,8 @@
 {
-  "query": "query GetCategoryProducts($page: Int $count: Int $department: String) {category(page: $page count: $count department: $department) {productItems: products {...ProductItem}}}fragment ProductItem on ProductInterface {title defaultImageUrl shelfName price {price: actual}promotions {offerText: description}}",
+  "query": "query GetCategoryProducts($page: Int $count: Int $aisle: String) {category(page: $page count: $count aisle: $aisle) {productItems: products {...ProductItem}}}fragment ProductItem on ProductInterface {title defaultImageUrl shelfName price {price: actual}promotions {offerText: description}}",
   "variables": {
     "page": 1,
-    "count": 6,
-    "aisle": ""
+    "count": 6
   },
   "operationName": "GetCategoryProducts"
 }
