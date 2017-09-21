@@ -13,4 +13,5 @@ public class GlobalData {
     public static ArrayList<Product> promotions;
     public static ArrayList<Coupons> coupons;
     public static ArrayList<Product> aisles;
+    public static String AisleActivityTitle;
 }

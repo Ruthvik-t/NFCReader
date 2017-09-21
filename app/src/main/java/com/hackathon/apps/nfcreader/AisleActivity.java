@@ -17,7 +17,7 @@ public class AisleActivity extends AppCompatActivity {
 
         aisleTitle = (TextView) findViewById(R.id.aisle_title);
         aisleList = (ListView) findViewById(R.id.aislelist);
-
+        aisleTitle.setText(GlobalData.AisleActivityTitle);
         OffersAdapter adapter = new OffersAdapter(this, GlobalData.aisles, GlobalData.aisles.size());
         aisleList.setAdapter(adapter);
     }

@@ -39,7 +39,7 @@
             android:name=".OffersActivty"
             android:label="Tesco" />
         <activity android:name=".CouponsActivity" />
-        <activity android:name=".AisleActivity"></activity>
+        <activity android:name=".AisleActivity" android:label="Tesco"></activity>
     </application>
 
 </manifest>

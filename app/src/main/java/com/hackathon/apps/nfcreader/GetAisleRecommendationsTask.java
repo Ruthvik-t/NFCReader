@@ -157,9 +157,9 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
             jsonObject = new JSONObject(loadJSONFromAsset("GetAisleProducts.json"));
 
             JSONObject variables = jsonObject.getJSONObject("variables");
-            variables.put("department", this.aisleName);
+            variables.put("aisle", this.aisleName);
             jsonObject.put("variables",variables);
-
+            GlobalData.AisleActivityTitle = "Frequently purchased items from " + this.aisleName + " aisle";
         } catch (JSONException e) {
             e.printStackTrace();
         }
