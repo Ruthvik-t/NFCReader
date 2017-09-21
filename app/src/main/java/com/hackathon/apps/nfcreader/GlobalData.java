@@ -12,4 +12,5 @@ import java.util.ArrayList;
 public class GlobalData {
     public static ArrayList<Product> promotions;
     public static ArrayList<Coupons> coupons;
+    public static ArrayList<Product> aisles;
 }

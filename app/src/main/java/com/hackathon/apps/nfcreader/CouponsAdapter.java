@@ -66,7 +66,7 @@ public class CouponsAdapter extends BaseAdapter implements View.OnClickListener 
         Coupons coupon = getItem(position);
         title.setText(coupon.title);
         offerDescription.setText(coupon.description);
-        offerCode.setText(coupon.code);
+        offerCode.setText("Code : " + coupon.code);
         productImage.setText(coupon.thumbnail);
 
         return convertView;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/home_fragment_background">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:id="@+id/aisle_title"
+        android:text="Frequently purchased"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:textSize="16dp"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/aislelist"
+        android:layout_below="@+id/aisle_title"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/aisle_recommendations"
+            android:textStyle="bold"
+            android:textSize="14dp"/>
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">NFCReader</string>
+    <string name="app_name">Smart Tesco Shopper</string>
+    <string name="aisle_recommendations">*We have gathered some recommendations from your previous shopping history</string>
 </resources>
