@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nfcData = (TextView) findViewById(R.id.explanation);
+        //nfcData = (TextView) findViewById(R.id.explanation);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if(nfcAdapter == null){
@@ -42,11 +43,11 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
             return;
         }
 
-        if (!nfcAdapter.isEnabled()) {
+        /*if (!nfcAdapter.isEnabled()) {
             nfcData.setText("NFC is disabled.");
         } else {
             nfcData.setText("NFC is enabled");
-        }
+        }*/
 
         Intent nfcIntent = new Intent(this, getClass());
         nfcIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -66,6 +67,14 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
 
         //productTask.setContext(this);
         //productTask.execute();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
+                startActivity(intent);
+            }
+        }, 2000);
         handleIntent(getIntent());
     }
 
@@ -136,5 +145,6 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
     @Override
     public void OnSuccessfullResponse(ArrayList<Product> products) {
         nfcData.setText(products.get(0).offerText);
+        //nfcData.setText(result);
     }
 }

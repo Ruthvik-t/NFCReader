@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/home_fragment_background">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:id="@+id/fragment_title"
+        android:text="Top Offers"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:textStyle="bold"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mylist"
+        android:layout_below="@+id/fragment_title"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="Load more"
+        android:textColor="@color/dark_text_blue"
+        android:layout_below="@+id/mylist"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:textAllCaps="false"
+        android:id="@+id/load_more"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/add_button_background"/>
+
+</RelativeLayout>

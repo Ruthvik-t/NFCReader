@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="offer_radius_and_stroke">2px</dimen>
+    <dimen name="plp_corner_radius">4dp</dimen>
+    <dimen name="plp_bottom_shadow">1dp</dimen>
+</resources>

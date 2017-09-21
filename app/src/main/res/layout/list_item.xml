@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@drawable/plp_background">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/place_holder_large"
+        android:id="@+id/item_image"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="Tesco Apple"
+        android:id="@+id/product_title"
+        android:layout_alignTop="@+id/item_image"
+        android:layout_toEndOf="@+id/item_image"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/dark_text_blue"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/offer_description"
+        android:textSize="12dp"
+        android:text="offer is so and so"
+        android:textColor="@color/red"
+        android:layout_below="@+id/product_title"
+        android:layout_alignStart="@+id/product_title"
+        android:layout_marginTop="15dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textAllCaps="false"
+        android:text="Locate me"
+        android:id="@+id/locateMe"
+        android:textColor="@color/dark_text_blue"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/add_button_background"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/locateMe"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="10dp"
+        android:text="£5.00"
+        android:textSize="14dp"
+        android:id="@+id/product_price"
+        android:textColor="@color/black"/>
+
+</RelativeLayout>
