@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hackathon.apps.nfcreader.GlobalData;
 import com.hackathon.apps.nfcreader.OffersAdapter;
 import com.hackathon.apps.nfcreader.R;
 import com.hackathon.apps.nfcreader.model.Product;
@@ -35,6 +36,7 @@ public class OffersFragment extends Fragment implements View.OnClickListener {
     Button showMore;
     int showCount;
     OffersAdapter adapter;
+    boolean isOffers = false;
 
     private static final String LIST_COUNT = "ListCount";
 
@@ -63,21 +65,23 @@ public class OffersFragment extends Fragment implements View.OnClickListener {
             showMore.setVisibility(GONE);
 
         ArrayList<Product> products = new ArrayList<Product>();
-        products.add(new Product("Apples","0.45","kg","asdasfdfdf"));
-        products.add(new Product("Mangoes","0.45","kg","asdasfdfdf"));
-
-        adapter = new OffersAdapter(getContext(), products);
+        if(isOffers) {
+            adapter = new OffersAdapter(getContext(), GlobalData.promotions);
+        } else {
+//            adapter = new OffersAdapter(getContext(), GlobalData.coupons);
+        }
         offersList.setAdapter(adapter);
 
         showMore.setOnClickListener(this);
         return view;
     }
 
-    public static OffersFragment NewInstance(int showCount){
+    public static OffersFragment NewInstance(int showCount, boolean isOffers){
         OffersFragment offersFragment = new OffersFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(LIST_COUNT, showCount);
         offersFragment.setArguments(bundle);
+        this.isOffers = isOffers;
         return  offersFragment;
     }
 

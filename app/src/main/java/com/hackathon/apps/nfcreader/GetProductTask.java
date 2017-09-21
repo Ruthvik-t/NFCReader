@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 /**
  * Created by ruthvik on 21/09/2017.
@@ -40,6 +41,7 @@ public class GetProductTask extends AsyncTask<Void, Void, Product> {
 
         try {
             jsonResponse = makeHttpRequest(url);
+            return extractFeatureFromJson(jsonResponse);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -149,14 +151,9 @@ public class GetProductTask extends AsyncTask<Void, Void, Product> {
     private HttpURLConnection setHeaderContents(HttpURLConnection urlConnection) {
         urlConnection.setRequestProperty("Accept","*/*");
         urlConnection.setRequestProperty("Content-Type","application/json");
-        //urlConnection.setRequestProperty("ighs-appkey", "trn:tesco:cid:mweb:uuid:A5EA1E42-1A9D-4262-8370-770B927D12E0");
         urlConnection.setRequestProperty("ighs-language","en-US");
-        //urlConnection.setRequestProperty("Cookie","OAuth.AccessToken=6c4ea4de-9a18-401b-adf2-d87308cb0643; OAuth.RefreshToken=962c6628-1923-46f1-bf31-324ee4c50c2b; UUID=a0ab14bf-a9e8-4420-bf15-bf3c14f06bb3");
-        //urlConnection.setRequestProperty("ighs-trkid","f8e32840-a132-4a34-ab36-529c496e9f22");
-        //urlConnection.setRequestProperty("ighs-hashed-email","'f2aea6074f9a61b01b1ce7fd9cf3ee44317ace70fa9351642303d355b15f3226");
         urlConnection.setRequestProperty("region","UK");
         urlConnection.setRequestProperty("X-Status", "Auth");
-        //urlConnection.setRequestProperty("DCO","wdc");
         return urlConnection;
     }
 
@@ -182,27 +179,29 @@ public class GetProductTask extends AsyncTask<Void, Void, Product> {
      * Return an {@link Product} object by parsing out information
      * about the first earthquake from the input earthquakeJSON string.
      */
-    private Product extractFeatureFromJson(String earthquakeJSON) {
-        if(TextUtils.isEmpty(earthquakeJSON))
+    private Product extractFeatureFromJson(String input) {
+        if(TextUtils.isEmpty(input))
             return null;
         try {
-            JSONObject baseJsonResponse = new JSONObject(earthquakeJSON);
-            JSONArray featureArray = baseJsonResponse.getJSONArray("features");
-
-            // If there are results in the features array
-            if (featureArray.length() > 0) {
-                // Extract out the first feature (which is an earthquake)
-                JSONObject firstFeature = featureArray.getJSONObject(0);
-                JSONObject properties = firstFeature.getJSONObject("properties");
-
-                // Extract out the title, time, and tsunami values
-                String title = properties.getString("title");
-                long time = properties.getLong("time");
-                int tsunamiAlert = properties.getInt("tsunami");
-
-                // Create a new {@link Event} object
-                //return new Event(title, time, tsunamiAlert);
+            JSONObject baseJsonResponse = new JSONObject(input);
+            JSONObject data = baseJsonResponse.getJSONObject("data");
+            JSONObject product = data.getJSONObject("product");
+            String title = product.getString("title");
+            String defaultImageUrl = product.getString("defaultImageUrl");
+            String price = null;
+            String offerText = null;
+            if(product.has("price")) {
+                price = product.getJSONObject("price").getString("price");
             }
+            if(product.has("promotions")) {
+                JSONArray promotions = product.getJSONArray("promotions");
+                if(promotions.length() > 0) {
+                    offerText = promotions.getJSONObject(0).getString("offerText");
+                }
+            }
+
+            return new Product(title, price, defaultImageUrl, offerText );
+
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
         }

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hackathon.apps.nfcreader.model.Product;
+import com.hackathon.apps.nfcreader.model.Coupons;
+
 
 import java.util.ArrayList;
 
@@ -68,13 +70,13 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
         //productTask.setContext(this);
         //productTask.execute();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
-                startActivity(intent);
-            }
-        }, 2000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
+//                startActivity(intent);
+//            }
+//        }, 2000);
         handleIntent(getIntent());
     }
 
@@ -132,11 +134,21 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
         String resultSet[] = result.split(":");
         switch (resultSet[0]){
             case "topoffers":
-                GetPromotions promotionsTask = (GetPromotions) new GetPromotions(resultSet[1], nfcData);
+                GetPromotions promotionsTask = (GetPromotions) new GetPromotions(resultSet[1]);
                 promotionsTask.setContext(this);
                 promotionsTask.setListener(this);
                 promotionsTask.execute();
+
+                GetCouponsTask couponsTask = (GetCouponsTask) new GetCouponsTask();
+                couponsTask.setContext(this);
+                couponsTask.setListener(this);
+                couponsTask.execute();
                 break;
+            case "aisle":
+                GetAisleRecommendationsTask aisleRecommendationsTask = (GetAisleRecommendationsTask) new GetAisleRecommendationsTask(resultSet[1]);
+                aisleRecommendationsTask.setContext(this);
+                aisleRecommendationsTask.setListener(this);
+                aisleRecommendationsTask.execute();
             default: nfcData.setText(result);
         }
 
@@ -144,7 +156,19 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
 
     @Override
     public void OnSuccessfullResponse(ArrayList<Product> products) {
-        nfcData.setText(products.get(0).offerText);
-        //nfcData.setText(result);
+        GlobalData.promotions = products;
+        Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
+        startActivity(intent);
+
     }
+
+    @Override
+    public void OnSuccessfullCouponResponse(ArrayList<Coupons> coupons) {
+        GlobalData.coupons = coupons;
+        Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
+        startActivity(intent);
+    }
+
+
+
 }

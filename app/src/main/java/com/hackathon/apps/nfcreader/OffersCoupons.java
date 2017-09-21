@@ -29,7 +29,7 @@ public class OffersCoupons extends AppCompatActivity {
 
     private void RenderFragments(Bundle savedInstanceState) {
         if(savedInstanceState == null){
-            offersFragment = OffersFragment.NewInstance(2);
+            offersFragment = OffersFragment.NewInstance(2, true);
         }
         else {
             offersFragment = (OffersFragment) getSupportFragmentManager().findFragmentByTag(OFFERS_TAG);

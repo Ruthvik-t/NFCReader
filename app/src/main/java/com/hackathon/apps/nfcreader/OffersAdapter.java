@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hackathon.apps.nfcreader.model.Coupons;
 import com.hackathon.apps.nfcreader.model.Product;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class OffersAdapter extends BaseAdapter {
 
         title.setText(getItem(position).title);
         price.setText("£" + getItem(position).price);
-
+        offerDescription.setText(getItem(position).offerText);
         return convertView;
     }
 }

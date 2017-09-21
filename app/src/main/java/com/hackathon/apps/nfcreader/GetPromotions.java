@@ -50,7 +50,7 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
         this.listener = listener;
     }
 
-    GetPromotions(String offerType, TextView nfcData){
+    GetPromotions(String offerType){
         this.offerType = offerType;
     }
 
@@ -127,7 +127,6 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
             urlConnection = setHeaderContents(urlConnection);
             OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream(),"UTF-8");
-            Log.e("testing",">>>>> " + loadJSONFromAsset("GetPromotions.json"));
             JSONObject jsonObject = addParameters(this.offerType);
             writer.write(jsonObject.toString());
             writer.close();
@@ -201,20 +200,27 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
             if (offers.length() > 0) {
                 ArrayList<Product> result = new ArrayList<Product>();
                 for(int i =0; i< offers.length(); i++){
-                    System.out.println(i);
                     JSONObject jsonItem = offers.getJSONObject(i);
                     String title = jsonItem.getString("title");
                     String defaultImageUrl = jsonItem.getString("defaultImageUrl");
-                    String price = jsonItem.getJSONObject("price").getString("price");
-                    String offerText = jsonItem.getJSONArray("promotions").getJSONObject(0).getString("offerText");
+                    String price = null;
+                    String offerText = null;
+                    if(jsonItem.has("price")) {
+                        price = jsonItem.getJSONObject("price").getString("price");
+                    }
+                    if(jsonItem.has("promotions")) {
+                        JSONArray productPromotions = jsonItem.getJSONArray("promotions");
+                        if(productPromotions.length() > 0) {
+                            offerText = productPromotions.getJSONObject(0).getString("offerText");
+                        }
+                    }
                     Product item = new Product(title,price, defaultImageUrl, offerText );
                     result.add(item);
-
                 }
                 return result;
             }
         } catch (JSONException e) {
-            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
+            Log.e(LOG_TAG, "Problem parsing the  JSON results", e);
         }
         return null;
     }

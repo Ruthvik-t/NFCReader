@@ -30,15 +30,28 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
     private static final String PRODUCT_URL="https://ci-mango.ngbeta.net/";
     private static final String LOG_TAG = "Network Request";
     private Context context;
+    private  String aisleName;
+    ResponseHandler listener;
 
+    GetAisleRecommendationsTask(String aisleName){
+        this.aisleName = aisleName;
+    }
+    public void setListener(ResponseHandler listener) {
+        this.listener = listener;
+    }
+    @Override
+    protected void onPostExecute(ArrayList<Product> s) {
+        super.onPostExecute(s);
+        if(listener != null)
+            listener.OnSuccessfullResponse(s);
+    }
     @Override
     protected ArrayList<Product> doInBackground(String... params) {
         URL url = createUrl(PRODUCT_URL);
-        String department = params[0];
         ArrayList<Product> products = null;
 
         try {
-            products = makeHttpRequest(url, department);
+            products = makeHttpRequest(url);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,7 +73,7 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
         return url;
     }
 
-    private ArrayList<Product> makeHttpRequest(URL url, String department) throws IOException {
+    private ArrayList<Product> makeHttpRequest(URL url) throws IOException {
         ArrayList<Product> products = null;
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
@@ -73,7 +86,7 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
             urlConnection = setHeaderContents(urlConnection);
             OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream(),"UTF-8");
             Log.e("testing",">>>>> " + loadJSONFromAsset("GetAisleProducts.json"));
-            JSONObject jsonObject = addParameters(department);
+            JSONObject jsonObject = addParameters();
             writer.write(jsonObject.toString());
             writer.close();
             urlConnection.connect();
@@ -135,13 +148,13 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
         return products;
     }
 
-    private JSONObject addParameters(String department) {
+    private JSONObject addParameters() {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(loadJSONFromAsset("GetAisleProducts.json"));
 
             JSONObject variables = jsonObject.getJSONObject("variables");
-            variables.put("department", department);
+            variables.put("department", this.aisleName);
             jsonObject.put("variables",variables);
 
         } catch (JSONException e) {

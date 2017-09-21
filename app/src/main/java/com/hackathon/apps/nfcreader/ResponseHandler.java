@@ -1,5 +1,6 @@
 package com.hackathon.apps.nfcreader;
 
+import com.hackathon.apps.nfcreader.model.Coupons;
 import com.hackathon.apps.nfcreader.model.Product;
 
 import java.util.ArrayList;
@@ -11,4 +12,5 @@ import java.util.ArrayList;
 public interface ResponseHandler{
     public void OnSuccessfullResponse(String result);
     public void OnSuccessfullResponse(ArrayList<Product> products);
+    public void OnSuccessfullCouponResponse(ArrayList<Coupons> coupons);
 }

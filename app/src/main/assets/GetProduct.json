@@ -1,8 +1,7 @@
 {
-  "query": "query GetProduct($storeid: ID $tpnc: String){product(tpnc: $tpnc storeid: $storeid){title price {unitPrice unitOfMeasure}}}",
+  "query": "query GetProduct($storeid: ID $tpnc: String){product(tpnc: $tpnc storeid: $storeid){title price {price: actual}}}",
   "variables":{
-    "storeid":6440,
-    "tpnc":272043262
+    "storeid":6440
   },
   "operationName": "GetProduct"
 }
