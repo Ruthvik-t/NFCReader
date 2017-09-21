@@ -55,7 +55,7 @@ public class OffersAdapter extends BaseAdapter {
         TextView price = (TextView) convertView.findViewById(R.id.product_price);
 
         title.setText(getItem(position).title);
-        price.setText("£" + getItem(position).unitPrice);
+        price.setText("£" + getItem(position).price);
 
         return convertView;
     }

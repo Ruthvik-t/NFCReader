@@ -10,8 +10,10 @@
         android:layout_height="36dp"
         android:id="@+id/fragment_title"
         android:text="Top Offers"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:paddingLeft="15dp"
+        android:textSize="26dp"
+        android:textColor="#000000"
         android:textStyle="bold"/>
 
     <ListView
