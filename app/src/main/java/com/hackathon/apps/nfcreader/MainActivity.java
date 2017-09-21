@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -154,13 +155,17 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
     public void OnSuccessfullResponse(ArrayList<Product> products, ArrayList<Coupons> coupons, ArrayList<Product> aisles) {
         GlobalData.promotions = products;
         GlobalData.coupons = coupons;
-        GlobalData.aisles = aisles;
         if(aisles == null) {
             Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
             startActivity(intent);
         }
         else
         {
+
+            GlobalData.aisles = aisles;
+            Log.e("strin testing aisle....", aisles.get(0).title);
+            Log.e("testing","after GlobalDatastrin testing aisle...." +GlobalData.aisles.get(0).title);
+
             Intent intent = new Intent(getApplicationContext(), AisleActivity.class);
             startActivity(intent);
         }

@@ -31,7 +31,7 @@
             android:textSize="36dp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="Welcome to Prescott Extra"/>
+            android:text="Welcome to Tesco Hatfield Extra"/>
 
     </LinearLayout>
 
