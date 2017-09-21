@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hackathon.apps.nfcreader.model.Coupons;
@@ -74,9 +75,12 @@ public class OffersAdapter extends BaseAdapter implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-
-        alertDialog.setTitle("Location")
-                .setMessage("Your product is at the right corner of this Aisle")
+        View parentRow = (View)v.getParent();
+        ListView listView = (ListView)parentRow.getParent();
+        int position = listView.getPositionForView(parentRow);
+        String location = getItem(position).location;
+        alertDialog.setTitle("Locate Me")
+                .setMessage(location)
                 .show();
 
     }

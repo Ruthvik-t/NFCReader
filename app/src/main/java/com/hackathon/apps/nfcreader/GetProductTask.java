@@ -200,7 +200,7 @@ public class GetProductTask extends AsyncTask<Void, Void, Product> {
                 }
             }
 
-            return new Product(title, price, defaultImageUrl, offerText );
+            return new Product(title, price, defaultImageUrl, offerText, "left" );
 
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);

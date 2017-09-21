@@ -43,7 +43,7 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
     protected void onPostExecute(ArrayList<Product> s) {
         super.onPostExecute(s);
         if(listener != null)
-            listener.OnSuccessfullResponse(s);
+            listener.OnSuccessfullResponse(s, null);
     }
     @Override
     protected ArrayList<Product> doInBackground(String... params) {
@@ -111,6 +111,7 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
 
     private ArrayList<Product> parseResponse(String jsonResponse) {
         ArrayList<Product> products = new ArrayList<Product>();
+        String[] locations = {"top", "bottom", "left", "right"};
 
         if(jsonResponse != null) {
             try {
@@ -135,9 +136,11 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
                             offerText = promotion.getString("offerText");
                         }
                     }
+                    String shelfName = product.getString("shelfName");
 
+                    String locationInfo = "You can find me on " + shelfName + " shelf, at " + locations[(int)(Math.random() * 3)] + " of the rack";
                     products.add(new Product(
-                            product.getString("title"), price, product.getString("defaultImageUrl"), offerText
+                            product.getString("title"), price, product.getString("defaultImageUrl"), offerText, locationInfo
                     ));
                 }
             } catch (JSONException e) {

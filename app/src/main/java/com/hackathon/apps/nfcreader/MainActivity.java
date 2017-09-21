@@ -138,37 +138,24 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
                 promotionsTask.setContext(this);
                 promotionsTask.setListener(this);
                 promotionsTask.execute();
-
-                GetCouponsTask couponsTask = (GetCouponsTask) new GetCouponsTask();
-                couponsTask.setContext(this);
-                couponsTask.setListener(this);
-                couponsTask.execute();
                 break;
             case "aisle":
                 GetAisleRecommendationsTask aisleRecommendationsTask = (GetAisleRecommendationsTask) new GetAisleRecommendationsTask(resultSet[1]);
                 aisleRecommendationsTask.setContext(this);
                 aisleRecommendationsTask.setListener(this);
                 aisleRecommendationsTask.execute();
+                break;
             default: nfcData.setText(result);
         }
 
     }
 
     @Override
-    public void OnSuccessfullResponse(ArrayList<Product> products) {
+    public void OnSuccessfullResponse(ArrayList<Product> products, ArrayList<Coupons> coupons) {
         GlobalData.promotions = products;
+        GlobalData.coupons = coupons;
         Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
         startActivity(intent);
 
     }
-
-    @Override
-    public void OnSuccessfullCouponResponse(ArrayList<Coupons> coupons) {
-//        GlobalData.coupons = coupons;
-//        Intent intent = new Intent(getApplicationContext(), OffersCoupons.class);
-//        startActivity(intent);
-    }
-
-
-
 }

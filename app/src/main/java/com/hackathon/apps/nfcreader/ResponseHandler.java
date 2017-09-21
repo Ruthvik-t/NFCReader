@@ -11,6 +11,5 @@ import java.util.ArrayList;
 
 public interface ResponseHandler{
     public void OnSuccessfullResponse(String result);
-    public void OnSuccessfullResponse(ArrayList<Product> products);
-    public void OnSuccessfullCouponResponse(ArrayList<Coupons> coupons);
+    public void OnSuccessfullResponse(ArrayList<Product> products, ArrayList<Coupons> coupons);
 }

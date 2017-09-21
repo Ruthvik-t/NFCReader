@@ -5,6 +5,7 @@ package com.hackathon.apps.nfcreader;
         import android.util.Log;
         import android.widget.TextView;
 
+        import com.hackathon.apps.nfcreader.model.Coupons;
         import com.hackathon.apps.nfcreader.model.Product;
         import org.json.JSONArray;
         import org.json.JSONException;
@@ -181,8 +182,15 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
     @Override
     protected void onPostExecute(ArrayList<Product> s) {
         super.onPostExecute(s);
+        ArrayList<Coupons> coupons = null;
+        try {
+            JSONObject jsonResponse = new JSONObject(loadJSONFromAsset("coupons.json"));
+            coupons = extractCouponsFeatureFromJson(jsonResponse);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if(listener != null)
-            listener.OnSuccessfullResponse(s);
+            listener.OnSuccessfullResponse(s, coupons);
     }
 
     /**
@@ -192,6 +200,8 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
     private ArrayList<Product> extractFeatureFromJson(String OfferResult) {
         if(TextUtils.isEmpty(OfferResult))
             return null;
+        String[] locations = {"top", "bottom", "left", "right"};
+
         try {
             JSONObject baseJsonResponse = new JSONObject(OfferResult);
             JSONObject data = baseJsonResponse.getJSONObject("data");
@@ -203,6 +213,9 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
                     JSONObject jsonItem = offers.getJSONObject(i);
                     String title = jsonItem.getString("title");
                     String defaultImageUrl = jsonItem.getString("defaultImageUrl");
+                    String aisleName = jsonItem.getString("aisleName");
+                    String shelfName = jsonItem.getString("shelfName");
+
                     String price = null;
                     String offerText = null;
                     if(jsonItem.has("price")) {
@@ -214,7 +227,8 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
                             offerText = productPromotions.getJSONObject(0).getString("offerText");
                         }
                     }
-                    Product item = new Product(title,price, defaultImageUrl, offerText );
+                    String locationInfo = "You can find me on " + aisleName + " aisle , under " + shelfName + " shelf, at " + locations[(int)(Math.random() * 3)] + " of the rack";
+                    Product item = new Product(title,price, defaultImageUrl, offerText, locationInfo );
                     if(jsonItem.has("promotions") && jsonItem.getJSONArray("promotions").length() > 0) {
                         result.add(item);
                     }
@@ -223,6 +237,30 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the  JSON results", e);
+        }
+        return null;
+    }
+
+    private ArrayList<Coupons> extractCouponsFeatureFromJson(JSONObject coupons) {
+        ArrayList<Coupons> result = new ArrayList<Coupons>();
+        try {
+            JSONArray couponResponse = coupons.getJSONArray("coupons");
+            if (couponResponse.length() > 0) {
+                for(int i =0; i< couponResponse.length(); i++){
+                    JSONObject jsonItem = couponResponse.getJSONObject(i);
+                    String code = jsonItem.getString("code");
+                    String title = jsonItem.getString("title");
+                    String qrCode = jsonItem.getString("qrCode");
+
+                    String description = jsonItem.getString("description");
+                    String thumbnail = jsonItem.getString("thumbnail");
+                    Coupons coupon = new Coupons(code, title, qrCode, description, thumbnail);
+                    result.add(coupon);
+                }
+                return result;
+            }
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
         }
         return null;
     }

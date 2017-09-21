@@ -12,14 +12,16 @@ public class Product {
 
     public String defaultImageUrl;
 
-    public Product(String title, String price, String defaultImageUrl, String offerText) {
+    public String location;
+
+
+    public Product(String title, String price, String defaultImageUrl, String offerText, String locationInfo) {
         this.title = title;
         this.defaultImageUrl = defaultImageUrl;
         this.price = price;
         this.offerText = offerText;
-
+        this.location = locationInfo;
     }
-
 }
 
 
