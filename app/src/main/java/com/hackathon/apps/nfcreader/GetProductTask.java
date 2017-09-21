@@ -107,7 +107,8 @@ public class GetProductTask extends AsyncTask<Void, Void, Product> {
             urlConnection = setHeaderContents(urlConnection);
             OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream(),"UTF-8");
             Log.e("testing",">>>>> " + loadJSONFromAsset("GetProduct.json"));
-            writer.write(loadJSONFromAsset("GetProduct.json"));
+            JSONObject jsonObject = addParameters();
+            writer.write(jsonObject.toString());
             writer.close();
             urlConnection.connect();
 
@@ -128,6 +129,21 @@ public class GetProductTask extends AsyncTask<Void, Void, Product> {
             }
         }
         return jsonResponse;
+    }
+
+    private JSONObject addParameters() {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(loadJSONFromAsset("GetProduct.json"));
+
+            JSONObject variables = jsonObject.getJSONObject("variables");
+            variables.put("tpnc","284475550");
+            jsonObject.put("variables",variables);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
     private HttpURLConnection setHeaderContents(HttpURLConnection urlConnection) {
