@@ -5,7 +5,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,25 +21,25 @@ import java.util.ArrayList;
  * Created by ruthvik on 21/09/2017.
  */
 
-public class OffersAdapter extends BaseAdapter implements View.OnClickListener {
+public class CouponsAdapter extends BaseAdapter implements View.OnClickListener {
     Context context;
-    ArrayList<Product> products;
+    ArrayList<Coupons> coupons;
     int showCount;
 
-    public OffersAdapter(Context context, ArrayList<Product> products, int showCount) {
+    public CouponsAdapter(Context context, ArrayList<Coupons> coupons, int showCount) {
         this.context = context;
-        this.products = products;
+        this.coupons = coupons;
         this.showCount = showCount;
     }
 
     @Override
     public int getCount() {
-        return showCount == 2 ? 2 : products.size();
+        return showCount == 2 ? 2 : coupons.size();
     }
 
     @Override
-    public Product getItem(int position) {
-        return products.get(position);
+    public Coupons getItem(int position) {
+        return coupons.get(position);
     }
 
     @Override
@@ -53,36 +52,38 @@ public class OffersAdapter extends BaseAdapter implements View.OnClickListener {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         if(convertView == null) {
-            convertView = inflater.inflate(R.layout.list_item, parent, false);
+            convertView = inflater.inflate(R.layout.coupon_list_item, parent, false);
         }
 
         TextView title = (TextView) convertView.findViewById(R.id.product_title);
         TextView offerDescription = (TextView) convertView.findViewById(R.id.offer_description);
-        ImageView productImage = (ImageView) convertView.findViewById(R.id.item_image);
-        TextView price = (TextView) convertView.findViewById(R.id.product_price);
-        Button locate = (Button) convertView.findViewById(R.id.locateMe);
+        TextView productImage = (TextView) convertView.findViewById(R.id.coupon_image);
+        TextView offerCode = (TextView) convertView.findViewById(R.id.offer_code);
+        Button getQrcode = (Button) convertView.findViewById(R.id.locateMe);
 
-        locate.setOnClickListener(this);
+        getQrcode.setOnClickListener(this);
 
-        title.setText(getItem(position).title);
-        price.setText("£" + getItem(position).price);
-        offerDescription.setText(getItem(position).offerText);
-        if(getItem(position).defaultImageUrl != null) {
-            Picasso.with(context).load(getItem(position).defaultImageUrl).into(productImage);
-        }
+        Coupons coupon = getItem(position);
+        title.setText(coupon.title);
+        offerDescription.setText(coupon.description);
+        offerCode.setText(coupon.code);
+        productImage.setText(coupon.thumbnail);
+
         return convertView;
     }
 
     @Override
     public void onClick(View v) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
         View parentRow = (View)v.getParent();
         ListView listView = (ListView)parentRow.getParent();
         int position = listView.getPositionForView(parentRow);
-        String location = getItem(position).location;
-        alertDialog.setTitle("Locate Me")
-                .setMessage(location)
-                .show();
-
+        Coupons coupon = getItem(position);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View dialogLayout = inflater.inflate(R.layout.qrcode_layout, null);
+        Picasso.with(context).load(coupon.qrCodeUrl).into((ImageView) dialogLayout.findViewById(R.id.qr_code));
+        alertDialog.setTitle("Scan the qrcode at the Till to avail offer");
+        alertDialog.setView(dialogLayout);
+        alertDialog.show();
     }
 }

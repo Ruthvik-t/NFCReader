@@ -36,6 +36,7 @@
             android:name=".OffersCoupons"
             android:label="Tesco" />
         <activity android:name=".OffersActivty" android:label="Tesco"></activity>
+        <activity android:name=".CouponsActivity"></activity>
     </application>
 
 </manifest>

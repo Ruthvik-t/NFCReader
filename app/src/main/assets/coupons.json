@@ -2,31 +2,31 @@
   "coupons": [
     {
       "code": "TDX-CBNH",
-      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-CBNH&chs=200x200&cht=qr&chld=H|0",
+      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-CBNH&chs=500x600&cht=qr&chld=H|0",
       "title": "Get £10 off when you spend £40+",
       "description": "Offer valcode on selected Homeware, Cook & Dine orders Expired on 17.10.2017",
       "thumbnail": "£10 off"
     },{
       "code": "TDX-AFDC",
-      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-AFDC&chs=200x200&cht=qr&chld=H|0",
+      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-AFDC&chs=500x600&cht=qr&chld=H|0",
       "title": "Save up to 30% on selected outdoor toys",
       "description": "Offer valcode on selected Homeware, Cook & Dine orders Expired on 17.10.2017",
       "thumbnail": "Save 30%"
     },{
       "code": "TDX-CBNQ",
-      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-CBNQ&chs=200x200&cht=qr&chld=H|0",
+      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-CBNQ&chs=500x600&cht=qr&chld=H|0",
       "title": "Nab 10% off all gift experiences with this Tesco Direct voucher code",
       "description": "Offer valcode on selected Homeware, Cook & Dine orders Expired on 17.10.2017",
       "thumbnail": "Save 10%"
     },{
       "code": "TDX-AFDQ",
-      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-AFDQ&chs=200x200&cht=qr&chld=H|0",
+      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-AFDQ&chs=500x600&cht=qr&chld=H|0",
       "title": "Get £20 off when you spend £40+",
       "description": "Offer valcode on selected Homeware, Cook & Dine orders Expired on 17.10.2017",
       "thumbnail": "£20 off"
     },{
       "code": "TDX-QERD",
-      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-QERD&chs=200x200&cht=qr&chld=H|0",
+      "qrCode": "https://chart.googleapis.com/chart?chl=TDX-QERD&chs=500x600&cht=qr&chld=H|0",
       "title": "Get £7 off when you spend £40+",
       "description": "Offer valcode on selected Homeware, Cook & Dine orders Expired on 17.10.2017",
       "thumbnail": "£7 off"
