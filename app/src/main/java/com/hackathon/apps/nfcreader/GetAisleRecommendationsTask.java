@@ -102,6 +102,7 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
         if(jsonResponse != null) {
             try {
                 String offerText = null;
+                String price = null;
                 JSONObject jsonObject = new JSONObject(jsonResponse);
                 JSONObject data = jsonObject.getJSONObject("data");
                 JSONObject category = data.getJSONObject("category");
@@ -110,7 +111,10 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
                 for(int i = 0; i < productItems.length(); i++)
                 {
                     JSONObject product = productItems.getJSONObject(i);
-                    JSONObject price = product.getJSONObject("price");
+                    if (product.has("price")) {
+                        JSONObject priceData = product.getJSONObject("price");
+                        price = priceData.getString("price");
+                    }
                     if (product.has("promotions")) {
                         JSONArray promotions = product.getJSONArray("promotions");
                         if (promotions.length() > 0) {
@@ -120,7 +124,7 @@ public class GetAisleRecommendationsTask extends AsyncTask<String, Void, ArrayLi
                     }
 
                     products.add(new Product(
-                            product.getString("title"), price.getString("price"), product.getString("defaultImageUrl"), offerText
+                            product.getString("title"), price, product.getString("defaultImageUrl"), offerText
                     ));
                 }
             } catch (JSONException e) {
