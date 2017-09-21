@@ -22,7 +22,7 @@ public class OffersActivty extends AppCompatActivity {
 
     private void RenderFragments(Bundle savedInstanceState) {
         if(savedInstanceState == null){
-            offersFragment = OffersFragment.NewInstance(GlobalData.promotions.size(), false);
+            offersFragment = OffersFragment.NewInstance(GlobalData.promotions.size(), true);
         }
         else {
             offersFragment = (OffersFragment) getSupportFragmentManager().findFragmentByTag(OFFERS_TAG);

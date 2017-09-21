@@ -1,7 +1,7 @@
 {
   "query": "query PromotionType($promotion: String) {   promotions: promotionType(type: $promotion) {   productItems: products {   id   title   defaultImageUrl   price {   price: actual unitOfMeasure unitPrice } promotions {  promotionId offerText: description } } } }",
   "variables": {
-    "promotion": "only1pound"
-
+    "promotion": "only1pound",
+    "count": 50
   }
 }

@@ -215,7 +215,9 @@ public class GetPromotions extends AsyncTask<Void, Void, ArrayList<Product>> {
                         }
                     }
                     Product item = new Product(title,price, defaultImageUrl, offerText );
-                    result.add(item);
+                    if(jsonItem.has("promotions") && jsonItem.getJSONArray("promotions").length() > 0) {
+                        result.add(item);
+                    }
                 }
                 return result;
             }
