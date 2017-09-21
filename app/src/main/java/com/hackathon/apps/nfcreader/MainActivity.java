@@ -12,6 +12,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hackathon.apps.nfcreader.model.Product;
+
+import java.util.ArrayList;
+
 import static android.nfc.NfcAdapter.EXTRA_TAG;
 
 public class MainActivity extends AppCompatActivity implements ResponseHandler{
@@ -59,8 +63,9 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
         }
 
         GetProductTask productTask = (GetProductTask) new GetProductTask();
-        productTask.setContext(this);
-        productTask.execute();
+
+        //productTask.setContext(this);
+        //productTask.execute();
         handleIntent(getIntent());
     }
 
@@ -115,6 +120,21 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
     //call back after parsing nfc data successfully
     @Override
     public void OnSuccessfullResponse(String result) {
-        nfcData.setText(result);
+        String resultSet[] = result.split(":");
+        switch (resultSet[0]){
+            case "topoffers":
+                GetPromotions promotionsTask = (GetPromotions) new GetPromotions(resultSet[1], nfcData);
+                promotionsTask.setContext(this);
+                promotionsTask.setListener(this);
+                promotionsTask.execute();
+                break;
+            default: nfcData.setText(result);
+        }
+
+    }
+
+    @Override
+    public void OnSuccessfullResponse(ArrayList<Product> products) {
+        nfcData.setText(products.get(0).offerText);
     }
 }

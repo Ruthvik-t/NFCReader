@@ -8,14 +8,18 @@ public class Product {
 
     public String title;
 
-    public String unitPrice, unitOfMeasure;
+    public String  price, offerText;
 
     public String defaultImageUrl;
 
-    public Product(String title, String unitPrice, String unitOfMeasure, String defaultImageUrl) {
+    public Product(String title, String price, String defaultImageUrl, String offerText) {
         this.title = title;
-        this.unitPrice = unitPrice;
-        this.unitOfMeasure = unitOfMeasure;
         this.defaultImageUrl = defaultImageUrl;
+        this.price = price;
+        this.offerText = offerText;
+
     }
+
 }
+
+
