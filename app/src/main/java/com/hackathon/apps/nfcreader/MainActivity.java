@@ -146,7 +146,11 @@ public class MainActivity extends AppCompatActivity implements ResponseHandler{
                 aisleRecommendationsTask.setListener(this);
                 aisleRecommendationsTask.execute();
                 break;
-            default: nfcData.setText(result);
+            case "thankyou":
+            default:
+                Intent intent = new Intent(getApplicationContext(), ThankYouActivity.class);
+                startActivity(intent);
+                break;
         }
 
     }
